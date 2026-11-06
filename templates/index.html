@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>House Price Prediction | ViharaTech</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f6fb;
+            color: #17243a;
+        }
+
+        /* MAIN LAYOUT */
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 305px;
+            background: #101d33;
+            color: white;
+            padding: 32px 26px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 45px;
+        }
+
+        .brand-icon {
+            width: 46px;
+            height: 46px;
+            background: #078c98;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .brand h2 {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .brand p {
+            color: #91a8c8;
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        /* PROFILE IMAGE FIX */
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .profile-image-container {
+            width: 170px;
+            height: 190px;
+            margin: 0 auto 22px;
+            border: 2px solid #08a6a6;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #243b53;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center 25%;
+        }
+
+        .profile-section h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .profile-section p {
+            color: #61d9d5;
+            font-size: 13px;
+        }
+
+        /* CONTACT */
+
+        .contact-section {
+            border-top: 1px solid #293950;
+            border-bottom: 1px solid #293950;
+            padding: 25px 0;
+        }
+
+        .contact-title {
+            color: #8ba5c8;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            word-break: break-word;
+        }
+
+        .contact-icon {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 11px;
+            background: #26364e;
+            color: #54d6d0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* SIDEBAR FOOTER */
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 30px;
+        }
+
+        .sidebar-footer p {
+            font-size: 12px;
+            color: #91a8c8;
+            margin-bottom: 12px;
+        }
+
+        .developer-name {
+            color: #ffbd59;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* MAIN CONTENT */
+
+        .main-content {
+            margin-left: 305px;
+            width: calc(100% - 305px);
+            padding: 35px 45px;
+        }
+
+        /* HEADER */
+
+        .main-header {
+            background: white;
+            border-radius: 18px;
+            padding: 28px 32px;
+            margin-bottom: 25px;
+            border: 1px solid #e5ebf2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .main-header h1 {
+            font-size: 25px;
+            font-weight: 800;
+            color: #14243b;
+            letter-spacing: 0.5px;
+        }
+
+        .main-header h1 span {
+            color: #078c98;
+        }
+
+        .main-header p {
+            color: #71839d;
+            font-size: 13px;
+            margin-top: 9px;
+        }
+
+        .header-badge {
+            background: #e7f7f5;
+            color: #078c98;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* FORM CARD */
+
+        .form-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            border: 1px solid #e5ebf2;
+            box-shadow: 0 8px 30px rgba(20, 36, 59, 0.03);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            background: #e5f6f4;
+            color: #078c98;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .section-heading h3 {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .section-heading p {
+            font-size: 12px;
+            color: #8b9bb0;
+            margin-top: 5px;
+        }
+
+        /* INPUT GRID */
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 23px 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #354963;
+            margin-bottom: 10px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            height: 50px;
+            padding: 0 15px;
+            border: 1px solid #dce5ef;
+            border-radius: 11px;
+            outline: none;
+            background: #fbfcfe;
+            font-size: 14px;
+            color: #14243b;
+            font-family: inherit;
+            transition: 0.25s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #078c98;
+            box-shadow: 0 0 0 3px rgba(7, 140, 152, 0.10);
+        }
+
+        .input-group small {
+            display: block;
+            color: #8b9bb0;
+            font-size: 10px;
+            margin-top: 7px;
+        }
+
+        .fixed-input {
+            background: #edf4f7 !important;
+            color: #607d96 !important;
+        }
+
+        /* LOCATION */
+
+        .location-section {
+            border-top: 1px solid #e5ebf2;
+            margin-top: 35px;
+            padding-top: 30px;
+        }
+
+        /* BUTTONS */
+
+        .button-section {
+            border-top: 1px solid #e5ebf2;
+            margin-top: 35px;
+            padding-top: 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button-description {
+            font-size: 12px;
+            color: #8091a8;
+            max-width: 350px;
+            line-height: 1.7;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 22px;
+            border: none;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .predict-btn {
+            background: #078c98;
+            color: white;
+            box-shadow: 0 6px 15px rgba(7, 140, 152, 0.18);
+        }
+
+        .reset-btn {
+            background: #e6ebf2;
+            color: #52647c;
+        }
+
+        .random-btn {
+            background: #e5f6ed;
+            color: #168457;
+        }
+
+        /* PREDICTION RESULT */
+
+        .result-card {
+            margin-top: 25px;
+            background: white;
+            border: 1px solid #dcece8;
+            border-radius: 18px;
+            padding: 30px;
+        }
+
+        .result-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-heading i {
+            color: #078c98;
+            font-size: 22px;
+        }
+
+        .result-heading h2 {
+            font-size: 19px;
+        }
+
+        .price-box {
+            background: linear-gradient(120deg, #078c98, #086d79);
+            color: white;
+            padding: 28px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .price-box p {
+            font-size: 13px;
+            opacity: 0.85;
+            margin-bottom: 12px;
+        }
+
+        .price-box h1 {
+            font-size: 34px;
+            font-weight: 800;
+        }
+
+        /* PROJECT INFORMATION BADGES */
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-badge {
+            background: #f0f7f8;
+            border: 1px solid #d9ebeb;
+            border-radius: 13px;
+            padding: 20px 12px;
+            text-align: center;
+        }
+
+        .info-badge i {
+            color: #078c98;
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .info-badge h4 {
+            font-size: 12px;
+            color: #078c98;
+            margin-bottom: 6px;
+        }
+
+        .info-badge p {
+            font-size: 12px;
+            font-weight: 700;
+            color: #354963;
+        }
+
+        /* ERROR MESSAGE */
+
+        .error-box {
+            margin-top: 22px;
+            background: #fff2f0;
+            border: 1px solid #ffd0ca;
+            color: #c0392b;
+            padding: 20px;
+            border-radius: 13px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+
+        .main-footer {
+            text-align: center;
+            padding: 35px 10px 15px;
+            color: #8293a8;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .main-footer h4 {
+            color: #078c98;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .main-footer strong {
+            color: #078c98;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 1100px) {
+
+            .input-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 768px) {
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .sidebar-footer {
+                margin-top: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .main-header {
+                padding: 22px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+            .button-section {
+                align-items: stretch;
+            }
+
+            .button-group {
+                width: 100%;
+            }
+
+            .button-group button {
+                flex: 1;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-house"></i>
+            </div>
+
+            <div>
+                <h2>VIHARATECH</h2>
+                <p>MACHINE LEARNING</p>
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile-section">
+
+            <div class="profile-image-container">
+
+                <img
+                    src="{{ url_for('static', filename='profile.png.png') }}"
+                    alt="M. Yuva Teja Profile Photo"
+                    class="profile-image"
+                >
+
+            </div>
+
+            <h2>M. Yuva Teja</h2>
+
+            <p>Machine Learning Developer</p>
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="contact-section">
+
+            <h4 class="contact-title">
+                CONTACT INFORMATION
+            </h4>
+
+            <div class="contact-item">
+
+                <div class="contact-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <span>madasuyuvateja@gmail.com</span>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+
+                <span>+91 7075929719</span>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <div class="contact-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <span>Andhra Pradesh, India</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIDEBAR FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <p>Powered by Python, Flask & Scikit-learn</p>
+
+            <div class="developer-name">
+                Developed by M. Yuva Teja
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="main-header">
+
+            <div>
+
+                <h1>
+                    VIHARATECH
+                    <span>MACHINE LEARNING PROJECT</span>
+                </h1>
+
+                <p>
+                    Developed by M. Yuva Teja |
+                    Intelligent House Price Prediction System
+                </p>
+
+            </div>
+
+            <div class="header-badge">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                MULTIPLE LINEAR REGRESSION
+
+            </div>
+
+        </header>
+
+
+        <!-- PREDICTION FORM -->
+
+        <form action="/" method="POST" id="predictionForm">
+
+            <div class="form-card">
+
+
+                <!-- PROPERTY DETAILS -->
+
+                <div class="section-heading">
+
+                    <div class="section-icon">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+
+                    <div>
+
+                        <h3>PROPERTY DETAILS</h3>
+
+                        <p>
+                            Enter your property specifications
+                            to estimate its market value.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-grid">
+
+
+                    <div class="input-group">
+
+                        <label>Number of Bedrooms</label>
+
+                        <input type="number" name="bedrooms"
+                               min="0" step="1"
+                               placeholder="Enter bedrooms"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Number of Bathrooms</label>
+
+                        <input type="number" name="bathrooms"
+                               min="0" step="0.25"
+                               placeholder="Enter bathrooms"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Living Area (sq ft)</label>
+
+                        <input type="number" name="sqft_living"
+                               min="1" step="1"
+                               placeholder="Enter living area"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Lot Area (sq ft)</label>
+
+                        <input type="number" name="sqft_lot"
+                               min="1" step="1"
+                               placeholder="Enter lot area"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Number of Floors</label>
+
+                        <input type="number" name="floors"
+                               min="1" step="0.5"
+                               placeholder="Enter floors"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Waterfront Property</label>
+
+                        <select name="waterfront" required>
+
+                            <option value="" selected disabled>
+                                Select waterfront status
+                            </option>
+
+                            <option value="0">No</option>
+
+                            <option value="1">Yes</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Property View</label>
+
+                        <select name="view" required>
+
+                            <option value="" selected disabled>
+                                Select property view
+                            </option>
+
+                            <option value="0">0 - No View</option>
+
+                            <option value="1">1 - Poor</option>
+
+                            <option value="2">2 - Average</option>
+
+                            <option value="3">3 - Good</option>
+
+                            <option value="4">4 - Excellent</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Property Condition</label>
+
+                        <select name="condition" required>
+
+                            <option value="" selected disabled>
+                                Select condition
+                            </option>
+
+                            <option value="1">1 - Poor</option>
+
+                            <option value="2">2 - Fair</option>
+
+                            <option value="3">3 - Average</option>
+
+                            <option value="4">4 - Good</option>
+
+                            <option value="5">5 - Excellent</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Above-Ground Area (sq ft)</label>
+
+                        <input type="number" name="sqft_above"
+                               min="0" step="1"
+                               placeholder="Enter above-ground area"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Basement Area (sq ft)</label>
+
+                        <input type="number" name="sqft_basement"
+                               min="0" step="1"
+                               placeholder="Enter basement area"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Year Built</label>
+
+                        <input type="number" name="yr_built"
+                               min="1800" max="2026"
+                               placeholder="Enter construction year"
+                               required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Year Renovated</label>
+
+                        <input type="number" name="yr_renovated"
+                               min="0" max="2026"
+                               placeholder="Enter renovation year"
+                               required>
+
+                        <small>
+                            Enter 0 if the property was never renovated.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCATION DETAILS -->
+
+                <div class="location-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+
+                            <h3>LOCATION DETAILS</h3>
+
+                            <p>
+                                Property location and geographical information.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-grid">
+
+
+                        <div class="input-group">
+
+                            <label>ZIP Code</label>
+
+                            <input type="number" name="zipcode"
+                                   placeholder="Enter ZIP code"
+                                   required>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>Country</label>
+
+                            <input type="text"
+                                   name="country"
+                                   value="USA"
+                                   readonly
+                                   class="fixed-input"
+                                   required>
+
+                            <small>Encoded as 0 in your training code.</small>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label>State</label>
+
+                            <input type="text"
+                                   name="state"
+                                   value="WA"
+                                   readonly
+                                   class="fixed-input"
+                                   required>
+
+                            <small>Encoded as 0 in your training code.</small>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="button-section">
+
+                    <p class="button-description">
+
+                        Your property details will be processed
+                        by the ViharaTech Machine Learning
+                        prediction engine.
+
+                    </p>
+
+
+                    <div class="button-group">
+
+
+                        <button type="submit"
+                                class="btn predict-btn">
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            &nbsp; PREDICT PRICE
+
+                        </button>
+
+
+                        <button type="button"
+                                class="btn reset-btn"
+                                id="resetButton">
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            &nbsp; RESET
+
+                        </button>
+
+
+                        <button type="button"
+                                class="btn random-btn"
+                                id="randomButton">
+
+                            <i class="fa-solid fa-shuffle"></i>
+
+                            &nbsp; RANDOM
+
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+        <!-- PREDICTION RESULT -->
+
+        {% if prediction is not none and prediction is defined %}
+
+        <div class="result-card">
+
+            <div class="result-heading">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h2>House Price Prediction Result</h2>
+
+            </div>
+
+
+            <div class="price-box">
+
+                <p>Estimated Property Price</p>
+
+                <h1>
+                    ${{ "{:,.2f}".format(prediction|float) }}
+                </h1>
+
+            </div>
+
+
+            <!-- THREE PROJECT INFORMATION DIVS -->
+
+            <div class="project-info">
+
+
+                <div class="info-badge">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <h4>ALGORITHM</h4>
+
+                    <p>Multiple Linear Regression</p>
+
+                </div>
+
+
+                <div class="info-badge">
+
+                    <i class="fa-solid fa-laptop-code"></i>
+
+                    <h4>PROJECT TYPE</h4>
+
+                    <p>Machine Learning Project</p>
+
+                </div>
+
+
+                <div class="info-badge">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <h4>PROJECT NAME</h4>
+
+                    <p>House Price Prediction</p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+        <div class="error-box">
+
+            <strong>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Prediction Error!
+            </strong>
+
+            <p>{{ error }}</p>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- FOOTER -->
+
+        <footer class="main-footer">
+
+            <h4>VIHARATECH MACHINE LEARNING PROJECT</h4>
+
+            <p>
+                House Price Prediction |
+                Multiple Linear Regression
+            </p>
+
+            <p>
+                Developed by
+                <strong>M. Yuva Teja</strong>
+            </p>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    const predictionForm = document.getElementById("predictionForm");
+
+    const resetButton = document.getElementById("resetButton");
+
+    const randomButton = document.getElementById("randomButton");
+
+
+    // RESET BUTTON - CLEAR ALL FIELDS
+
+    resetButton.addEventListener("click", function () {
+
+        // Clear every input field.
+
+        predictionForm.querySelectorAll("input").forEach(function(input) {
+
+            if (input.type !== "button" && input.type !== "submit") {
+
+                input.value = "";
+
+            }
+
+        });
+
+
+        // Reset every dropdown to its first option.
+
+        predictionForm.querySelectorAll("select").forEach(function(select) {
+
+            select.selectedIndex = 0;
+
+        });
+
+
+        // Remove previous prediction result from the page.
+
+        const result = document.querySelector(".result-card");
+
+        if (result) {
+            result.remove();
+        }
+
+
+        // Remove previous error message.
+
+        const error = document.querySelector(".error-box");
+
+        if (error) {
+            error.remove();
+        }
+
+    });
+
+
+    // RANDOM BUTTON - FILL SAMPLE VALUES
+
+    randomButton.addEventListener("click", function () {
+
+
+        const randomValues = {
+
+            bedrooms: 4,
+
+            bathrooms: 2,
+
+            sqft_living: 1800,
+
+            sqft_lot: 5000,
+
+            floors: 2,
+
+            waterfront: 0,
+
+            view: 2,
+
+            condition: 4,
+
+            sqft_above: 1500,
+
+            sqft_basement: 300,
+
+            yr_built: 2004,
+
+            yr_renovated: 2020,
+
+            zipcode: 98001,
+
+            country: "USA",
+
+            state: "WA"
+
+        };
+
+
+        // Insert random sample values into the form.
+
+        Object.keys(randomValues).forEach(function(key) {
+
+            const field = predictionForm.elements[key];
+
+            if (field) {
+
+                field.value = randomValues[key];
+
+            }
+
+        });
+
+
+        // Remove previous prediction.
+
+        const result = document.querySelector(".result-card");
+
+        if (result) {
+            result.remove();
+        }
+
+
+        // Remove previous error.
+
+        const error = document.querySelector(".error-box");
+
+        if (error) {
+            error.remove();
+        }
+
+    });
+
+
+</script>
+
+</body>
+
+</html>
